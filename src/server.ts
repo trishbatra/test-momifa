@@ -1,72 +1,49 @@
-import dotenv from 'dotenv'
-import next from 'next'
-import nextBuild from 'next/dist/build'
-import path from 'path'
-
-dotenv.config({
-  path: path.resolve(__dirname, '../.env'),
-})
-
 import express from 'express'
 import payload from 'payload'
-
-import { seed } from './payload/seed'
+import { nextApp, nextHandler } from './next-utils'
 
 const app = express()
 const PORT = process.env.PORT || 3000
 
-const start = async (): Promise<void> => {
-  await payload.init({
-    secret: process.env.PAYLOAD_SECRET || '',
-    express: app,
-    onInit: () => {
-      payload.logger.info(`Payload Admin URL: ${payload.getAdminURL()}`)
-    },
-  })
+// Add logging middleware
+app.use((req, res, next) => {
+  console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`)
+  next()
+})
 
-  if (process.env.PAYLOAD_SEED === 'true') {
-    await seed(payload)
-    process.exit()
-  }
+// Error handling middleware
+app.use((err: any, req: any, res: any, next: any) => {
+  console.error('Server Error:', err)
+  res.status(500).json({ error: 'Internal Server Error', details: err.message })
+})
 
-  if (process.env.NEXT_BUILD) {
-    app.listen(PORT, async () => {
-      payload.logger.info(`Next.js is now building...`)
-      // @ts-expect-error
-      await nextBuild(path.join(__dirname, '../'))
-      process.exit()
+const start = async () => {
+  try {
+    await payload.init({
+      secret: process.env.PAYLOAD_SECRET || '',
+      express: app,
+      onInit: () => {
+        console.log(`Payload Admin URL: ${process.env.PAYLOAD_PUBLIC_SERVER_URL}`)
+      },
     })
 
-    return
-  }
-  app.get('/api/images', async (req, res) => {
-    try {
-      const productId = req.query.productId as string;
-      const products = await payload.findByID({
-        id: productId,
-        collection: "products"
-      }) as { images?: { image: { url: string } }[] };
-      const filteredProducts = products.images?.map(image => image.image.url);
-      res.json(filteredProducts);
-    } catch (error) {
-      res.status(500).json({ error: 'Failed to fetch products' });
-    }
-  });
-  const nextApp = next({
-    dev: process.env.NODE_ENV !== 'production',
-  })
-
-  const nextHandler = nextApp.getRequestHandler()
-
-  app.use((req, res) => nextHandler(req, res))
-
-  nextApp.prepare().then(() => {
-    payload.logger.info('Starting Next.js...')
-
-    app.listen(PORT, async () => {
-      payload.logger.info(`Next.js App URL: ${process.env.PAYLOAD_PUBLIC_SERVER_URL}`)
+    app.use((req, res) => {
+      console.log('Handling request:', req.url)
+      return nextHandler(req, res)
     })
-  })
+
+    nextApp.prepare().then(() => {
+      app.listen(PORT, async () => {
+        console.log(`Server started on port ${PORT}`)
+        console.log(`Next.js App URL: ${process.env.NEXT_PUBLIC_SERVER_URL}`)
+      })
+    })
+  } catch (error) {
+    console.error('Server startup error:', error)
+  }
 }
 
-start()
+start().catch((err) => {
+  console.error('Fatal server error:', err)
+  process.exit(1)
+})
