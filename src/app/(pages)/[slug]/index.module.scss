@@ -1,0 +1,117 @@
+@import '../../_css/queries.scss';
+$tablet-min: 600px;
+$tablet-max: 1024px;
+
+.home {
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+  margin-top: 100px;
+  
+
+  & > :last-child {
+    margin-top: 2rem;
+  }
+
+  @include mid-break {
+    gap: 40px; // Reduce the gap for mobile devices
+    margin-top: 0; // Reduce top margin for mobile devices
+  }
+}
+
+.fallingRectanglesWrapper {
+  width: 100%;
+  height: 35rem;
+  margin: 20px 0;
+  overflow: hidden;
+
+  @include mid-break {
+    margin-top: 28px;
+    
+  }
+}
+@media (max-width: 650px) {
+  .fallingRectanglesWrapper{
+   margin-top:  -1px;
+   height: 700px;
+  }
+}
+
+.horizontalScrollWrapper {
+  margin-bottom: 20px; /* Add some bottom margin */
+  height: 387em;
+
+  /* Tablet screen sizes */
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    height: 368vh;
+  }
+
+  /* Medium screens */
+  @media screen and (min-width: 820px) and (max-width: 1180px) {
+    height: 304em;
+  }
+
+  /* Large tablet  */
+  @media screen and (min-width: 1024px) and (max-width: 1366px) {
+    height: 358em;
+  }
+
+  /* Small screen breakpoint */
+  @include small-break {
+    height: 290vh;
+  }
+
+  /* Small screen heights */
+  @media screen and (min-width: 414px) and (max-width: 896px) {
+    height: 377vh;
+  }
+
+  /* Medium screen breakpoint */
+  @include mid-break {
+    margin-bottom: 20px;
+  }
+
+  /* Mobile screens */
+  @media (max-width: 650px) {
+    margin-left: 20px;
+    height: 290vh;
+
+  }
+}
+
+
+
+.faq {
+
+  @media (max-width: 650px) {
+    margin-top: 3rem;
+  margin-bottom: 3rem;
+    margin-right: 30px;
+    }
+}
+
+.productCards{
+  margin-bottom: 100px;
+}
+
+.faqTitle {
+  font-size: 70px;
+  min-width: 150px;
+  color: white;
+  font-weight: 600;
+  line-height: 90%;
+  letter-spacing: -0.05em;
+  font-weight: bold;
+  margin-bottom: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-right: 70px;
+  
+}
+
+.hoodies{
+  width: 100%;
+}

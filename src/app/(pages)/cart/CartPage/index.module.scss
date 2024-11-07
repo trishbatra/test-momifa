@@ -1,0 +1,90 @@
+@import '../../../_css/common';
+
+.cart {
+  margin: 30px 0;
+}
+
+.cartWrapper {
+  display: grid;
+  grid-template-columns: 65% 1fr;
+  gap: 60px;
+margin-top: 5rem;
+  @include large-break {
+    grid-template-columns: 1fr;
+  }
+}
+
+.header {
+  display: grid;
+  grid-template-columns: 100px 2fr 1fr;
+  gap: 24px;
+  margin-bottom: 8px;
+
+  @include small-break {
+    display: none;
+  }
+}
+
+.headerItemDetails {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+}
+
+.headersubtotal {
+  text-align: end;
+}
+
+.itemsList {
+  border-top: 1px solid var(--color-dark-50);
+}
+
+.summary {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 30px 24px;
+  border: 1px solid var(--color-dark-50);
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--color-dark-50);
+}
+
+
+.Paybutton {
+  border: none;
+  color: #fff;
+  background-image: linear-gradient(60deg, #000000, #4d5db9c9);
+  border-radius: 20px;
+  background-size: 100% auto;
+  font-family: inherit;
+  font-size: 17px;
+  padding: 0.6em 1.5em;
+  width: 100%;
+  margin-top: 1rem;
+ }
+ 
+ .Paybutton:hover {
+  background-position: right center;
+  background-size: 200% auto;
+  -webkit-animation: pulse 2s infinite;
+  animation: pulse512 1.5s ease-in-out infinite;
+ }
+ 
+ @keyframes pulse512 {
+  0% {
+   box-shadow: 0 0 0 0 #05bada66;
+  }
+ 
+  70% {
+   box-shadow: 0 0 0 10px rgb(218 103 68 / 0%);
+  }
+ 
+  100% {
+   box-shadow: 0 0 0 0 rgb(218 103 68 / 0%);
+  }
+ }

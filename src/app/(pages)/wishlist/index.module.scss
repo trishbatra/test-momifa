@@ -1,0 +1,43 @@
+.productCards{
+  margin-bottom: 100px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.card {
+  // flex: 1 1 200px; 
+  width: 17rem; 
+ 
+}
+
+.faqTitle {
+  font-size: 96px;
+  color: white;
+  font-weight: 600;
+  line-height: 90%;
+  letter-spacing: -0.05em;
+  font-weight: bold;
+  margin-bottom: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-right: 70px;
+}
+
+.heading{
+  color: white;
+  padding: 20px;
+}
+
+@media (max-width: 640px) {
+  .card {
+    // flex: 1 1 200px; /* Flex-grow, flex-shrink, and flex-basis */
+    width: 19rem; /* Minimum width for the card */
+   
+  }
+}

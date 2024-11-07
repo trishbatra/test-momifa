@@ -1,0 +1,40 @@
+@use '../../_css/queries.scss' as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+
+}
+
+.titleWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+
+  h3 {
+    font-weight: 500;
+  }
+}
+
+.list {
+  // display: grid;
+  // gap: 30px;
+  // padding: 0;
+  // grid-template-columns: repeat(3, 2fr);
+
+  // @include small-break {
+  //   grid-template-columns: 1fr;
+  // }
+}
+
+.title {
+  font-size: 40px;
+  color: white;
+
+  @media (max-width: 738px) {
+    font-size: 20px;
+    margin-left: 0;
+  }
+}
