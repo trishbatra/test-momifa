@@ -1,0 +1,8 @@
+build
+dist
+node_modules
+.DS_Store
+.env
+.next
+.vercel
+.env.example
